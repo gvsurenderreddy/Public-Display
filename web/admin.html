@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cork board - Admin panel</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+		<link href="/css/reset.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <!-- <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+        <link href="/css/jquery.mobile-1.4.2.min.css" rel="stylesheet" media="screen">
+        <link href="/css/corkboard.css" rel="stylesheet">
+        <link href="/css/sketch.css" rel="stylesheet" media="screen">
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="../../assets/js/html5shiv.js"></script>
+		<script src="../../assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+	
+	<!--admin page -->
+		<div data-role="page">
+	
+		<div data-role="header">
+			<h1>Admin Panel</h1>
+		</div>
+		
+		<div role="main" class="ui-content">
+			
+			<ul id="messageList" class="touch" data-role="listview" data-autodividers="true" data-icon="false" data-split-icon="delete" data-split-theme>
+				
+			</ul>
+			
+		</div>
+		
+		</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="/js/jquery-1.10.2.js"></script>
+		<script src="/js/jquery.mobile-1.4.2.min.js"></script>
+		<!-- Socket.io -->
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<!-- Custom js -->
+		<script src="/js/baseurl.js"></script>
+
+		<script>
+			// Define all types of messages
+(function () {
+	var maxId = 8;
+	window.Create = {		
+		socket : null,
+  
+		// Initialisation
+		initialize : function(socketURL) {
+			this.socket = io.connect(socketURL);
+
+			this.socket.emit('fetchAllNotepapers', {});
+
+			//Process any incoming messages
+			this.socket.on('updateMsg', this.add);
+
+			//Clear the deleted message
+			this.socket.on('clearMsg', this.clear);
+			
+		},
+
+		add : function(data) {
+
+			var msg, listItem = [], matchListItem;
+			for(var i=0; msg = data[i] ; i++){
+				matchListItem = $('a.listItem[msgId="' + msg['msgId'] + '"]');
+				if( matchListItem.length > 0 ){
+					matchListItem.html(msg['id'] + ": " + msg['content']);
+				}
+				else {
+					listItem.push('<li>');
+					listItem.push('<a href="#" class="listItem" msgId="'+ msg['msgId'] +'" noteId= "'+ msg['id'] +'" >');
+					listItem.push(msg['id'] + ": " + msg['content']);
+					listItem.push('</a><a href="#" class="delete">Delete</a></li>');
+					$("#messageList").append(listItem.join(''));
+					listItem = [];
+				}
+			}
+
+			$("#messageList").listview("refresh");
+
+		},
+
+		//delete message from db
+		delMsg : function(msg) {			
+			//send save message
+			this.socket.emit('delMsg', msg);
+			
+			return false;
+		},
+
+		clear : function(msg){
+
+			$('a.listItem[msgId="' + msg['msgId'] + '"]').parent().remove();
+			$("#messageList").listview("refresh");
+		}
+
+	};
+
+}());
+
+
+$( document ).ready(function() {
+
+	Create.initialize(base_url);
+
+	$('body').on('click', '.delete', function(evt) {
+				evt.preventDefault();
+				var listitem = $( this ).siblings('.listItem');
+				var msgId = listitem.attr('msgId');
+				var id = listitem.attr('noteId');
+				console.log("msgId: "+msgId);
+				Create.delMsg( {msgId: msgId, id: id} );
+   				$( this ).parent().remove();
+				$("#messageList").listview("refresh");
+    });
+
+});
+			
+			
+		</script>
+	</body>
+</html>

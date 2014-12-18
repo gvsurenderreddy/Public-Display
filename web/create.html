@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cork board - Post Message</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+		<link href="/css/reset.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <!-- <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+        <link href="/css/jquery.mobile-1.4.2.min.css" rel="stylesheet" media="screen">
+        <link href="/css/corkboard.css" rel="stylesheet">
+        <link href="/css/sketch.css" rel="stylesheet" media="screen">
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="../../assets/js/html5shiv.js"></script>
+		<script src="../../assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div data-role="page" id="post">
+	
+		<div data-role="header">
+			<!-- <a href="#menu" id="menuBtn" class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow" title=" menu " data-form="ui-icon" data-role="button" role="button"> menu </a> -->
+			<h1>Post Message</h1>
+			<!-- <a class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-plus ui-btn-icon-notext ui-shadow addNewMsgBtn" title=" add " data-form="ui-icon" data-role="button" role="button"> add </a> -->
+		</div>
+		
+		<div role="main" class="ui-content">
+	    <div id="wrapper">   
+        
+		<div class="imgholder cf">
+			<a id="uploadImgBtn" class="btn btn-primary btn-lg">
+				Image
+				<span class="glyphicon glyphicon-camera"></span>
+			</a>
+			<a id="uploadVideoBtn" class="btn btn-success btn-lg">
+				Video
+				<span class="glyphicon glyphicon-facetime-video"></span>
+			</a>
+			<a id="sketchBtn" class="btn btn-info btn-lg" href="#sketchModal" data-rel="popup" data-position-to="window" data-transition="pop">
+				Sketch
+				<span class="glyphicon glyphicon-picture"></span>
+			</a>
+			<button id="btn-youtube" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#youtubeModal">Youtube</button>
+			
+			<!-- ***TO-DO: Handle multiple images -->
+			<form id="galleryForm-1" class="galleryForm" action="" method="POST" enctype="multipart/form-data">
+				<input type="file" id="messageImg" name="messageImg" accept="image/*" pattern="([^\s]+(?=\.(jpg|gif|png))\.\2)"/>
+				<!-- <input type="hidden" name="?php echo $this -> security -> get_csrf_token_name(); ?>" value="?php echo $this -> security -> get_csrf_hash(); ?>"> -->
+			</form>
+			
+			<form role="form" class="videoForm" action="" method="POST" enctype="multipart/form-data">
+				<input type="file" id="messageVideo" name="messageVideo" accept="video/*" pattern="([^\s]+(?=\.(mov|mpeg|mp4|avi|3gp))\.\2)" />
+				<!-- <input type="hidden" name="?php echo $this -> security -> get_csrf_token_name(); ?>" value="?php echo $this -> security -> get_csrf_hash(); ?>"> -->
+			</form>
+			
+		</div>
+		
+		<form id="msgForm" action="/index.php/message/update" role="form" method="post" accept-charset="utf-8">
+			<div class="form-group">
+				<textarea class="form-control" id="textContent" name="content" rows="3"></textarea>
+			</div>
+			<div id="linkPreview"></div>
+			<div class="content-container">
+                <ul class="table" id="imgList"></ul>
+                <ul class="table" id="videoList"></ul>
+            </div>
+            <div class="form-group">
+            	<label for="type">Current Type:</label>
+            	<select class="form-control" name="type" id="type">
+					<option value="1" selected>Text</option>
+  					<option value="3">Photos</option>
+  					<option value="5">Video</option>
+  					<option value="6">Sketch</option>
+  					<option value="4">Url</option>
+				</select>
+            </div>
+			<input type="hidden" name="id" id="" value="" />
+			<input type="hidden" name="messageId" id="messageId" value="" />
+			<input type="hidden" name="notepaperId" id="notepaperId" value="" />
+			
+			
+			<input type="hidden" name="videoId" id="videoId" value="" />
+			<input type="hidden" name="url" id="url" />
+			<input type="hidden" name="urlTitle" id="urlTitle" />
+			<input type="hidden" name="urlSummary" id="urlSummary" />
+			<input type="hidden" name="urlThumbnail" id="urlThumbnail" />
+			
+			<!-- <input type="hidden" name="?php echo $this -> security -> get_csrf_token_name(); ?>" value="?php echo $this -> security -> get_csrf_hash(); ?>" /> -->
+		</form>
+		
+		<div class="progress" id="my-progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+        </div>
+		
+		<!--
+		<button type="button" id="saveBtn" class="btn btn-default btn-lg">
+			Save
+		</button>
+		-->
+		
+		
+		
+        </div>
+        
+        
+        <!-- <div class="modal fade" id="youtubeModal" tabindex="-1" role="dialog" aria-labelledby="youtubeModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content">
+      				<div class="modal-header">
+      					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        				<h4 class="modal-title" id="myModalLabel">Youtube</h4>
+      				</div>
+      				<div class="modal-body">
+        				<input type="text" class="form-control" name="youtubeUrl" id="youtubeUrl" placeholder="Paste the youtube url" />
+      					<div class="youtubeHolder"></div>
+      				</div>
+      				<div class="modal-footer">
+        				<button type="button" id="save-youtube" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+      				</div>
+    			</div>
+  			</div>
+		</div> -->
+        
+        
+        <div class="modal fade" id="sketchModal" data-role="popup">
+			<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+			<div data-role="header" data-theme="a">
+				<h1>Sketch</h1>
+			</div>
+			<div role="main" class="ui-content" id="canvas-holder">
+				<div class="tools"></div>
+				<canvas id="sketchpad" width="270" height="220"></canvas>
+			</div>
+			<div role="footer" id="canvas-footer" class="modal-footer">
+      			<button type="button" id="clear-sketch" class="btn btn-default" data-dismiss="">Clear</button>
+        		<button type="button" id="save-sketch" data-dismiss="modal" class="btn btn-primary">Save</button>
+      		</div>
+		</div>
+		
+		<div class="modal fade" id="positionModal" data-role="popup">
+			<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+			<div data-role="header" data-theme="a">
+				<h1>Notepaper Position</h1>
+			</div>
+			<div role="main" class="ui-content" id="canvas-holder">
+				<div class="note-thumb-container cf">
+					<div class="note-thumb" position="1"></div>
+					<div class="note-thumb" position="2"></div>
+					<div class="note-thumb" position="3"></div>
+					<div class="note-thumb" position="4"></div>
+					<div class="note-thumb" position="5"></div>
+					<div class="note-thumb" position="6"></div>
+					<div class="note-thumb" position="7"></div>
+					<div class="note-thumb" position="8"></div>
+				</div>
+			</div>	
+			<div data-role="header" data-theme="a">
+				<h1>Notepaper Color</h1>
+			</div>
+			<div role="main" class="ui-content" id="colors-holder">
+				<div class="color-thumb-container cf">
+					<div class="color-thumb" value="#FFFFFF"></div>
+					<div class="color-thumb" value="#FFF780"></div>
+					<div class="color-thumb" value="#D5E4F5"></div>
+					<div class="color-thumb" value="#CBFAFA"></div>
+					<div class="color-thumb" value="#F8CDCD"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="fetchModal" data-role="popup">
+			<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+			<div data-role="header" data-theme="a">
+				<h1>Which notepaper?</h1>
+			</div>
+			<div role="main" class="ui-content" id="canvas-holder">
+				<div class="note-thumb-container cf">
+					<div class="note-thumb" position="1"></div>
+					<div class="note-thumb" position="2"></div>
+					<div class="note-thumb" position="3"></div>
+					<div class="note-thumb" position="4"></div>
+					<div class="note-thumb" position="5"></div>
+					<div class="note-thumb" position="6"></div>
+					<div class="note-thumb" position="7"></div>
+					<div class="note-thumb" position="8"></div>
+				</div>
+			</div>		
+		</div>
+        
+		<a href='#sketchpad' data-clear='true' id="real-clear-canvas">Clear</a>
+		</div><!-- /content -->
+			
+		<div id="footer" data-role="footer" style="overflow:hidden;" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li>
+						<a href="#menu" class="ui-btn ui-shadow ui-corner-all ui-icon-bars ui-btn-icon-top menuBtn">Menu</a>	
+					</li>
+					<!--<li>
+						<a id="sketchBtn" class="btn btn-info btn-lg" href="#sketchModal" data-rel="popup" data-position-to="window" data-transition="pop">
+							Sketch
+							<span class="glyphicon glyphicon-picture"></span>
+						</a>
+					</li>-->
+					<li>
+						<a class="ui-btn ui-shadow ui-corner-all ui-icon-plus ui-btn-icon-top addNewMsgBtn">Add</a>
+						<!-- <a id="fetchBtn" class="btn btn-primary btn-lg" href="#fetchModal" data-rel="popup" data-position-to="window" data-transition="pop">
+						Fetch
+						</a> -->
+					</li>
+					<li>
+						<a id="positionBtn" class="ui-btn ui-shadow ui-corner-all ui-icon-gear ui-btn-icon-top" href="#positionModal" data-rel="popup" data-position-to="window" data-transition="pop">Setting</a>
+						<!--
+						<a id="positionBtn" class="btn btn-default btn-lg" href="#positionModal" data-rel="popup" data-position-to="window" data-transition="pop">
+							Setting
+						</a>
+						-->
+					</li>					
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+		
+		</div><!-- /page -->
+		
+		<!--menu page -->
+		<div data-role="page" id="menu">
+	
+		<div data-role="header">
+			<h1>Post Message</h1>
+			<a href="#post" class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-plus ui-btn-icon-notext ui-shadow addNewMsgBtn" title=" add " data-form="ui-icon" data-role="button" role="button"> add </a>
+		</div>
+		
+		<div role="main" class="ui-content">
+			<ul id="messageList" class="touch" data-role="listview" data-icon="false" data-split-icon="delete" data-split-theme>
+				
+			</ul>
+		</div>
+		
+		</div>
+		
+		
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="/js/jquery-1.10.2.js"></script>
+		<!-- For upload form of photo gallery -->
+		<script src="/js/jquery.form.min.js"></script>
+		<script src="/js/jquery.mobile-1.4.2.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<!-- <script src="/js/bootstrap.min.js"></script>	 -->	
+		
+		<!-- Socket.io -->
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		
+		<!-- Custom js -->
+		<script src="/js/sketch.js"></script>	
+		<script src="/js/baseurl.js"></script>
+		
+		<script>
+		
+		//initialize global variables
+		var allMessage;
+		var message;
+		
+		
+		$( document ).ready(function() {
+			
+			// Initialise forms
+			$('form#galleryForm-1').attr('action', base_url+'upload/uploadGallery');
+			$('form.videoForm').attr('action', base_url+'upload/uploadVideo');
+			
+			//initialze the message object
+			
+			allMessage = JSON.parse(localStorage.getItem('allMessage'));
+			if(allMessage == null){
+				allMessage = [];
+			}
+			$("#textContent").prop("disabled", true)
+			message = {};
+			message.type = "1";
+            $('#type').val("1").attr('selected', true).siblings('option').removeAttr('selected');
+			$('#type').selectmenu("refresh", true);
+			
+			allMessage[allMessage.length] = message;
+			
+			Create.initialize(base_url);
+			
+			//Prepare colors for setting
+			$('div.color-thumb').each(function(){
+				$(this).css('background-color',$(this).attr('value'));
+			});
+		});
+			//customize upload button
+			$('#uploadImgBtn').click(function(){
+        		// Simulate a click on the file input button
+        		// to show the file browser dialog
+       			$('#messageImg').click();
+    		});
+    		
+    		$('#uploadVideoBtn').click(function(){
+        		// Simulate a click on the file input button
+        		// to show the file browser dialog
+       			$('#messageVideo').click();
+    		});
+
+			//automatic upload after choosing the file
+			$( "#messageImg" ).on("change", function() {
+				$(this).parent().submit();
+			});
+			$( "#messageVideo" ).on("change", function() {
+				$(this).parent().submit();
+			});
+			
+		// Upload text messages
+	$('#textContent').keyup(function(evt) {
+		
+		message.text = $('#textContent').val();
+		localStorage.setItem('allMessage', JSON.stringify(allMessage));
+		Create.updateMsg();
+
+		return false;
+		
+	});		
+			
+			
+			//upload the image of gallery  	
+  	$('body').on('submit', '.galleryForm', function(evt) {
+		console.log('[DEBUG] .galleryForm submitting...');
+  		evt.preventDefault();
+  		var galleryForm = $(this);
+  		var imgList = $('#imgList');
+  		var filename = $('#messageImg').val().split('/').pop().split('\\').pop();
+  		var progressBar = $('#my-progress').children('.progress-bar');
+                 $(this).ajaxSubmit({                 	
+                    beforeSend: function() {
+                    	$('#my-progress').show();
+                        var progress = '0%';
+                        progressBar.css(
+							'width',
+							progress
+							);
+                    },
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        var progress = percentComplete + '%';
+                        progressBar.css(
+						'width',
+						progress
+						);
+                    },
+                    complete: function(xhr) {
+                     	galleryForm.clearForm();
+                     	progressBar.width('0%');
+                     	var data = JSON.parse(xhr.responseText);
+						//var message.img = JSON.parse(localStorage.getItem('img'));
+                     	if(data.status=="error"){
+                         	alert(data.status);
+                        }else{
+							imgList.append('<li class="image"><a class="removeThumbnail" href="#">&times;</a><div class="uThumbnail" style="background-image: url('+ base_url +'uploads/thumbnail/'+ data.imageName +');"></div><input type="hidden" name="url[]" class="imgUrl" value="'+data.imageName+'" /></li>');
+							
+							// Change option
+                            $('#type').val("3").attr('selected', true).siblings('option').removeAttr('selected');
+							$('#type').selectmenu("refresh", true);
+                            $('#my-progress').hide();
+							message.type = "3";
+							
+							//If the user has not uploaded any picture yet, create a local storage to store the names of the uploaded image
+							if(message.img == null){
+								message.img = []
+								message.img.push(data.imageName);
+							}
+							else{ //append the newly uploaded image to the local storage
+								message.img.push(data.imageName);
+							}
+							localStorage.setItem('allMessage', JSON.stringify(allMessage));
+							Create.updateMsg();
+                        }
+                         	
+                    }
+					
+                 });
+    });
+    
+    
+    //upload the video
+    $('body').on('submit', '.videoForm', function(evt) {
+				evt.preventDefault();
+				var videoForm = $(this);
+				//var videoHolder = $(this).parent();
+				//var urlField = $(this).parent().next('.gridVideoForm').children('[name="url"]');
+				var videoList = $('#videoList');
+				var progressBar = $('#my-progress').children('.progress-bar');
+				$(this).ajaxSubmit({
+						beforeSend: function() {
+							$('#my-progress').show();
+							var progress = '0%';
+							progressBar.css('width',progress);
+						},
+						uploadProgress: function(event, position, total, percentComplete) {
+							var progress = percentComplete + '%';
+							progressBar.css('width',progress);
+						},
+						complete: function(xhr) {
+							var data = JSON.parse(xhr.responseText);
+							//var message.video = JSON.parse(localStorage.getItem('video'));
+							videoForm.clearForm();
+							progressBar.width('0%');
+							if(data.status=="error"){
+								console.log(data.msg);
+							}else{
+								videoList.append('<li class="image"><a class="removeThumbnail">&times;</a><div class="uThumbnail" style="background-image: url(' +base_url+'uploads/video/'+ data.thumbnail +');"></div><input type="hidden" name="videoUrl" class="videoUrl" value="'+data.msg+'" /></li>');
+								
+								// Change option
+								$('#type').val("5").attr('selected', true).siblings('option').removeAttr('selected');
+								$('#type').selectmenu("refresh", true);
+								$('#my-progress').hide();
+								$('#uploadVideoBtn').hide();
+								message.type = "5";
+
+								/*
+								if(message.video == null){
+									message.video = [];
+									message.video[0] = data.msg;
+								}
+								else{ //append the newly uploaded image to the local storage
+									message.video.push(data.msg);
+								}
+								*/
+								message.video = data.msg;
+								localStorage.setItem('allMessage', JSON.stringify(allMessage));
+								
+								//Boardcast update
+								Create.updateMsg();
+								//$('#msgForm').submit();
+							}
+						}
+				});
+				return false;
+			});
+    
+    //remove the uploaded image of photo gallery
+    $('body').on('click', '#imgList .removeThumbnail', function(evt) {
+
+    		$(this).parent().remove();
+			//var message.img = JSON.parse(localStorage.getItem('img'));
+    		var uploadedImgLength = message.img.length;
+			for(var i=0; i < uploadedImgLength; i++){
+				if(message.img[i] == $(this).parent().find('.imgUrl').attr('value')){
+					message.img.splice(i, 1);
+					localStorage.setItem('allMessage', JSON.stringify(allMessage));
+				}	
+			}
+			
+    		if($('#imgList .removeThumbnail').length <= 0){
+				// Change option
+				$('#type').val("1").attr('selected', true).siblings('option').removeAttr('selected');
+				$('#type').selectmenu("refresh", true);
+				message.type = "1";
+			}
+			Create.updateMsg();
+    	
+   	});   	
+   	
+	//remove the thumbnail of uploaded video
+	$('body').on('click', '#videoList .removeThumbnail', function(evt) {
+    		$(this).parent().remove();
+			
+			//var message.video = JSON.parse(localStorage.getItem('video'));
+    		var uploadedVideoLength = message.video.length;
+			for(var i=0; i < uploadedVideoLength; i++){
+				if(message.video[i] == $(this).parent().find('.imgUrl').attr('value')){
+					message.video.splice(i, 1);
+					localStorage.setItem('allMessage', JSON.stringify(allMessage));
+					
+				}	
+			}
+			
+    		//$('#msgForm').submit();
+			// Change option
+			$('#type').val("1").attr('selected', true).siblings('option').removeAttr('selected');
+			$('#type').selectmenu("refresh", true);
+			Create.updateMsg();
+			message.type = "1";
+    		console.log("remove.");
+    		$('#uploadVideoBtn').show();
+    	
+   	});   
+   	
+   		
+	//remove the url preview holder
+	$('body').on('click', '.removeYoutube', function(evt) {
+		evt.preventDefault();
+		//var url = JSON.parse(localStorage.getItem('url'));
+		if(message.url!=null){
+			message.url = null;
+			message.url_title = null;
+			message.url_thumbnail = null;
+			message.url_summary = null;
+		}
+	    // Update UI
+		$('#url').val("");
+			$('#urlTitle').val("");
+			$('#urlSummary').val("");
+			$('#urlThumbnail').val("");
+	    $('#linkPreview').css('padding','0%');
+	    $('#linkPreview').css('border','0');
+    	$(this).parent().children().remove();
+		$('#type').val("1").attr('selected', true).siblings('option').removeAttr('selected');
+		$('#type').selectmenu("refresh", true);
+		message.type = "1";
+		localStorage.setItem('allMessage', JSON.stringify(allMessage));
+		Create.updateMsg();
+   	});
+   	
+   	
+	//sketchpad
+	$(function() {
+    	$.each(['#f00', '#ff0', '#0f0', '#00f', '#f0f', '#000', '#fff'], function() {
+    		$('#canvas-holder .tools').append("<a href='#sketchpad' data-color='" + this + "' style='width: 30px; background: " + this + ";'></a> ");
+    	});
+    	$('#sketchpad').sketch();
+  	});
+  	
+  	$("#save-sketch").on("click", function(event ) {
+				event.preventDefault();
+				var canvasTest = document.getElementById('sketchpad');
+				var canvasData = canvasTest.toDataURL("image/png");
+				var imgList = $('#imgList');
+				var text = $('#textContent').val();
+				
+				
+				$.ajax({
+					type : "POST",
+					url : base_url+'upload/uploadSketch',
+					data : {
+						imgData : canvasData//,
+						//<?php echo $this -> security -> get_csrf_token_name(); ?> : "<?php echo $this -> security -> get_csrf_hash(); ?>"
+					},
+					dataType : "json"
+				}).done(function(data) {
+					//var message.img = JSON.parse(localStorage.getItem('img'));
+					
+					$( "#sketchModal" ).popup( "close" );
+					imgList.append('<li class="image"><a class="removeThumbnail" href="#">&times;</a><div class="uThumbnail" style="background-image: url('+ base_url +'uploads/thumbnail/'+ data.imageName +');"></div><input type="hidden" name="url[]" class="imgUrl" value="'+data.imageName+'" /></li>');
+					// Change option
+					$('#type').val("3").attr('selected', true).siblings('option').removeAttr('selected');
+					$('#type').selectmenu("refresh", true);
+					message.type = "3";
+					canvasData = "";
+						//If the user has not uploaded any picture yet, create a local storage to store the names of the uploaded image
+							if(message.img == null){
+								message.img = [];
+								message.img.push(data.imageName);
+							}
+							else{ //append the newly uploaded image to the local storage
+								message.img.push(data.imageName);
+							}
+							localStorage.setItem('allMessage', JSON.stringify(allMessage));
+							Create.updateMsg();
+
+				});
+	});
+	
+	$("#clear-sketch").on("click", function(event ) {
+		event.preventDefault();
+		$('#real-clear-canvas').click();
+		var canvas = document.getElementById('sketchpad');
+		var context = canvas.getContext('2d');
+		context.clearRect(0,0,270,296);
+		//sketch.clear();
+	});
+	
+	// Update notepaper color
+	$('#colors-holder div.color-thumb-container div.color-thumb').on("click", function(e) {
+		e.preventDefault();
+		$('#colors-holder div.color-thumb-container div.color-thumb').removeClass('active');
+		$(this).addClass('active');
+		
+				
+		// Store notepaper color in localstorage		
+		message.bgcolor = $('#colors-holder > .color-thumb-container > .active').attr('value');
+		localStorage.setItem('allMessage', JSON.stringify(allMessage));
+		
+		Create.updateMsg();
+	});
+	
+	// Get parameter by name in a url string
+	function getParameterByName(name, string){
+	  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+	  var regexS = "[\\?&]"+name+"=([^&#]*)";
+	  var regex = new RegExp( regexS );
+	  var results = regex.exec(string);
+	  if( results == null )
+		return "";
+	  else
+		return decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
+	
+	$('body').on('click', '.listItem', function(evt) {
+		//event.preventDefault();
+		
+		var messageOrder = $(this).attr('messageOrder');
+		
+		/*allMessage = JSON.parse(localStorage.getItem('allMessage'));
+		if(allMessage == null){
+			allMessage = [];
+		}*/
+		
+		//TODO
+		//Fetch all the data from the local storage
+		//see if an ID is provided
+		message = allMessage[messageOrder];
+		
+			//Fetch all the uploaded image and video thumbnails
+			var imgList = $('#imgList');
+			imgList.empty();
+			var videoList = $('#videoList');
+			videoList.empty();
+			//remove link preview
+			$('#linkPreview').css('padding','0%');
+			$('#linkPreview').css('border','0');
+			$('#linkPreview').children().remove();
+			//clear all the text
+			$('#textContent').val("");
+			$('#url').val("");
+			$('#urlTitle').val("");
+			$('#urlSummary').val("");
+			$('#urlThumbnail').val("");
+			
+			if(message.img != null){
+				var uploadedImgLength = message.img.length;
+				for(var i=0; i < uploadedImgLength; i++){
+					imgList.append('<li class="image"><a class="removeThumbnail" href="#">&times;</a><div class="uThumbnail" style="background-image: url('+ base_url +'uploads/thumbnail/'+ message.img[i] +');"></div><input type="hidden" name="url[]" class="imgUrl" value="'+message.img[i]+'" /></li>');
+				}
+			}
+			//Fetch all the uploaded video thumbnails
+			
+			if(message.video != null){
+				videoList.append('<li class="image"><a class="removeThumbnail" href="#">&times;</a><div class="uThumbnail" style="background-image: url('+ base_url +'uploads/video/'+ message.video.replace('.mp4','.jpg') +');"></div><input type="hidden" name="url[]" class="imgUrl" value="'+message.video+'" /></li>');
+			}
+			
+			
+			if(message.text!=null){ //Fetch message.text from local storage
+				$('#textContent').val(message.text); 
+			}
+			
+			if(message.type!=null){ //Fetch type from local storage
+				$('#type').val(message.type).attr('selected', true).siblings('option').removeAttr('selected');
+				$('#type').selectmenu("refresh", true);
+			}
+			
+			$('div.note-thumb').each(function() {
+				$(this).removeClass('owned');
+			});
+			
+			$('div.color-thumb').each(function() {
+				$(this).removeClass('active');
+			});
+			
+			if(message.notepaperId){
+				$('#notepaperId').val(message.notepaperId);
+				$('div.note-thumb[position=\'' + message.notepaperId + '\']').addClass('owned'); //indicate the current notepaper on setting
+			}
+			
+			if(message.messageId){
+				$('#messageId').val(message.messageId);
+			}
+			
+			if(message.bgcolor){
+				$('div.color-thumb[value=\'' + message.bgcolor + '\']').addClass('active'); //indicate the current color on setting
+			}
+			
+			if(message.url){ //if it is an url, ask server side to scrape the url
+				//append the information to the link preview div
+				var holder = $("#linkPreview");
+				$('#url').val(message.url);
+				$('#urlTitle').val(message.url_title);
+				$('#urlSummary').val(url_summary);
+				$('#urlThumbnail').val(url_thumbnail);
+				
+				holder.append('<button class="btn btn-link removeYoutube">&times;</button>');
+				if(message.url_thumbnail){
+					holder.append('<div class="thumbnailHolder"><img class="urlThumbnail" src="'+ message.url_thumbnail +'" /></div>');
+				}
+				holder.append('<div class="urlTitle"><h5><a target="_blank" href="'+ message.url_url +'">' + message.url_title + '</a></h5></div>');
+				if(message.url_summary){
+					holder.append('<div class="urlDescription">'+message.url_summary+'</div>');
+				}
+				// Update UI
+				$('#linkPreview').css('padding','2%');
+				$('#linkPreview').css('border','1px solid #CCCCCC');
+			}
+		
+	});
+	
+	
+	$('body').on('click', '.delete', function(evt) {
+			evt.preventDefault();
+			var listitem = $( this ).siblings('.listItem');
+			var messageOrder = listitem.attr('messageOrder');
+			console.log("msgorder: "+messageOrder);
+			Create.delMsg( {id: allMessage[messageOrder].notepaperId, msgId: allMessage[messageOrder].messageId} );
+            //listitem.remove();
+			allMessage.splice(messageOrder, 1);
+			var numberOfMessage = allMessage.length;
+			var listItems = [];
+			for(var i = 0; i < numberOfMessage; i++){
+				listItems.push('<li>');
+				listItems.push('<a href="#post" class="listItem" messageOrder="'+ i +'">');
+				listItems.push(allMessage[i].text);
+				listItems.push('</a><a href="#" class="delete">Delete</a></li>');
+			}
+			$('#messageList').html(listItems.join(''));
+			$("#messageList").listview("refresh");
+			
+			localStorage.setItem('allMessage', JSON.stringify(allMessage));
+			
+
+     });
+	
+	$(document).on('pagecontainershow', function(e, ui) {
+	
+		var thisPage = $(':mobile-pagecontainer').pagecontainer('getActivePage').attr('id');
+		if(thisPage == "menu"){
+			var numberOfMessage = allMessage.length;
+			var listItems = [];
+			for(var i = 0; i < numberOfMessage; i++){
+				listItems.push('<li>');
+				listItems.push('<a href="#post" class="listItem" messageOrder="'+ i +'">');
+				listItems.push(allMessage[i].text);
+				listItems.push('</a><a href="#" class="delete">Delete</a></li>');
+			}
+			$('#messageList').html(listItems.join(''));
+			$("#messageList").listview("refresh");
+		}
+	});
+	
+	
+	$(".menuBtn").on("click", function(event ) {
+		//message.text = $('#textContent').val();
+		//localStorage.setItem('allMessage', JSON.stringify(allMessage));
+		
+	});
+	
+	$(".addNewMsgBtn").on("click", function(event ) {
+		message.text = $('#textContent').val();
+		Create.occupyNotepaper();
+		var imgList = $('#imgList');
+		var videoList = $('#videoList');
+		$('#textContent').val("");
+		$('#url').val("");
+		$('#urlTitle').val("");
+		$('#urlSummary').val("");
+		$('#urlThumbnail').val("");
+		$("#textContent").prop("disabled", true);
+		
+		imgList.empty();
+		videoList.empty();
+		//remove link preview
+		$('#linkPreview').css('padding','0%');
+	    $('#linkPreview').css('border','0');
+		$('#linkPreview').children().remove();
+		
+		//initialize notepaper color
+		$('div.color-thumb').each(function() {
+			$(this).removeClass('active');
+		});
+		$('div.color-thumb[value=\'#FFFFFF\']').addClass('active'); 
+		$('#uploadVideoBtn').show();
+		
+		// initalize option
+        $('#type').val("1").attr('selected', true).siblings('option').removeAttr('selected');
+		$('#type').selectmenu("refresh", true);
+		message = {};
+		message.bgcolor = "#FFFFFF"; //initialize the bgcolor to white
+		allMessage[allMessage.length] = message;
+		
+	});
+	
+	
+	$('#type').change(function(){		
+		message.type = $(this).val();
+	});
+	
+	</script>
+	<script src="/js/client_ws.js"></script>
+	</body>
+</html>

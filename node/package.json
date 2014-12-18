@@ -1,0 +1,14 @@
+{
+  "name": "corkboard-websocket",
+  "version": "0.0.0",
+  "description": "corkboard",
+  "main": "signaler.js",
+  "author": "Ken Chan, Sheldon Ip",
+  "license": "CUHK",
+  "dependencies": {
+    "express": "~3.0.0",
+    "socket.io": "~0.9.10",
+    "sqlite3": "^2.2.7",
+    "webshot": "^0.15.3"
+  }
+}

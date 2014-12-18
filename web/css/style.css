@@ -1,0 +1,56 @@
+/*----------------------------
+    tabless list
+-----------------------------*/
+
+ul.table {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: auto;
+}
+ul.table li {
+	*width: 128px;
+	*height: 128px;
+	float: left;
+	*margin: 10px;
+	padding: 5px;
+	border: 1px solid #CCC;
+	text-align: center;
+}
+ul.table li:hover {
+	border: 1px solid #2E9AFE;
+}
+.uThumbnail {
+	width: 128px;
+	height: 100px;
+	background-size: cover;
+	background-position: 50% 20%;
+}
+
+/*----------------------------
+    youtube
+-----------------------------*/
+.youtubeHolder{
+	margin-bottom: 5px;
+}
+
+.youtubeHolder .thumbnailHolder{
+	float: left;
+}
+
+.youtubeTitle{
+	
+}
+
+.youtubeDescription{
+	font-size: 9px;
+}
+
+.youtubeThumbnail{
+	height: 90px;
+	width: 120px;
+}
+
+.removeYoutube{
+	float: right;
+}

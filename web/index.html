@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <!--<link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>-->
+        <link href="/css/reset.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="/css/board.css" rel="stylesheet">
+        <title>Cork board</title>   
+    </head>
+    <body>
+        <div class="main-wrapper">
+        	
+            <!-- Fetch each notepaper from notepaper table --> 
+			<div class="note-row" id="first-row">
+			<div class="note-grid">
+			<a id="note-1" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+			<div class="note-grid">
+			<a id="note-2" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+			<div class="note-grid">
+			<a id="note-3" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+			<div class="note-grid">
+			<a id="note-4" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a> 
+			</div>
+			</div>
+			<div class="note-row">
+			<div class="note-grid">
+			<a id="note-5" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+			<div class="note-grid">
+			<a id="note-6" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+			<div class="note-grid">
+			<a id="note-7" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+			<div class="note-grid">
+			<a id="note-8" class="note note-white note-hidden">
+				<div class="pin"></div>
+			</a>
+			</div>
+            </div>
+			<div class="bottom-row">
+				<div class="bottom-grid">
+					<a id="note-9" class="note note-white">
+						<div id='qrcode'>
+						</div>
+					</a>
+				</div>
+				<!--
+				<div class="bottom-grid">
+					<a id="note-10" class="note note-white">
+						
+					</a>
+				</div>
+				-->
+			</div>
+			<!--
+            <a class="qr-label">
+               	<div class="text">
+               		Want to Post ?
+               	</div>
+               	
+        		<div class="text">
+               		Scan here ->
+               	</div>
+				
+				<div id='qrcode'>
+				</div>
+        	</a>
+            -->
+        </div><!-- End of wrapper -->
+        <div>
+        	
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="/js/jquery-1.10.2.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/js/bootstrap.min.js"></script>
+		
+		<!-- Socket.io -->
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<!-- Custom js -->
+		<script src="/js/baseurl.js"></script>
+		<script src="/js/qrcode.js"></script>
+		<script src="/js/corkboard_ws.js"></script>		
+		
+		
+        <script>
+			
+        </script>
+    </body>
+</html>

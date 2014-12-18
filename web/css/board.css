@@ -1,0 +1,477 @@
+html,
+body{
+	height: 100%;
+}
+
+body{
+	background: url('../img/corkboard_m.jpg');
+	/*font-family: 'The Girl Next Door', cursive;*/
+    font-family: cursive;
+    line-height: 1.3em;
+}
+
+.main-wrapper { 	
+	width: 100%;
+	height: 100%;
+}
+
+div#main-wrapper a{
+    color: #000000;
+}
+
+div#main-wrapper a:hover{
+    text-decoration: none;
+}
+
+.hihi{
+	height: 100%;
+}
+
+/********/
+/* Note */
+/********/
+div.frame{
+    position: relative;
+}
+
+
+.note-thumb{
+	-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	float: left;
+	background-color: #FFF780;
+	-webkit-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    -moz-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+	float: left;
+	margin: 6px 1%;
+	border: 1px solid rgba(0,0,0,.25);
+	cursor: default;
+	width: 23%;
+    height: 80px;	
+}
+
+.note-thumb.occupied{
+	opacity: 0.3;
+	padding: 28px 0;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.note {
+    *width: 550px;
+    *width: 445px;
+    height: 98%;
+    width: 90%;
+	margin-left: 4%;
+	*min-width: 160px;
+	*min-height: 280px;
+	background-color: #FFF780;
+	-webkit-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    -moz-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+	float: left;
+	position: relative;
+	*margin: 11px 11px 11px 11px;
+	border: 1px solid rgba(0,0,0,.25);
+	cursor: default;
+	*margin-left: 0.5%;
+	-transition: all .6s ease-in-out;
+	-moz-transition: all .6s ease-in-out;
+	-webkit-transition: all .6s ease-in-out;
+	
+}
+
+#note-1 {
+    transform: rotate(3deg);
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-1 3s linear 0s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-1 3s linear 0s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-1 3s linear 0s infinite alternate; /* Standard syntax */
+}
+
+#note-2 {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-2 3s linear 1s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-2 3s linear 1s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-2 3s linear 1s infinite alternate; /* Standard syntax */
+}
+
+#note-3 {
+    transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg); /* IE 9 */
+    -webkit-transform: rotate(-3deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-1 3s linear 2s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-1 3s linear 2s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-1 3s linear 2s infinite alternate; /* Standard syntax */
+}
+
+#note-4 {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-2 3s linear 3s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-2 3s linear 3s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-2 3s linear 3s infinite alternate; /* Standard syntax */
+}
+
+#note-5 {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-2 3s linear 2s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-2 3s linear 2s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-2 3s linear 2s infinite alternate; /* Standard syntax */
+}
+
+#note-6 {
+    transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg); /* IE 9 */
+    -webkit-transform: rotate(-3deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-1 3s linear 3s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-1 3s linear 3s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-1 3s linear 3s infinite alternate; /* Standard syntax */
+}
+
+#note-7 {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-2 3s linear 0s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-2 3s linear 0s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-2 3s linear 0s infinite alternate; /* Standard syntax */
+}
+
+#note-8 {
+    transform: rotate(3deg);
+    -ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Opera, Chrome, and Safari */
+
+    -webkit-animation: note-enlarge-1 3s linear 1s infinite alternate; /* Chrome, Safari, Opera */
+    -moz-animation: note-enlarge-1 3s linear 1s infinite alternate; /* Chrome, Safari, Opera */
+    animation: note-enlarge-1 3s linear 1s infinite alternate; /* Standard syntax */
+}
+
+.note-hidden{
+	transform: scale(1.6) rotate(45deg);
+    -ms-transform: scale(1.6) rotate(45deg); /* IE 9 */
+    -webkit-transform: scale(1.6) rotate(45deg); /* Opera, Chrome, and Safari */
+    opacity: 0;
+}
+
+.note-row{
+	height: 40%;
+	clear: both;
+}
+
+#first-row{
+	margin-top: 2%;
+}
+
+.note-grid{
+	width: 25%;
+	height: 100%;
+	float: left;
+	position: relative;
+    perspective: 800px;
+}
+
+.bottom-row{
+	height: 20%;
+	clear: both;
+}
+
+.bottom-grid{
+	width: 12%;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+
+#qrcode img{
+	margin-left: 3%;
+}
+
+.qr-label{
+	width: 650px;
+    height: 175px;
+	-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	float: right;
+	background-color: #FFFFFF;
+	-webkit-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    -moz-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+	margin: -1px 10px 0px 0px;
+	border: 1px solid rgba(0,0,0,.25);
+	padding: 0px;
+	cursor: default;
+}
+
+.qr-label > div.text{
+	margin: 28px 0px 0px 10px;
+	color: #330066;
+	float: left;
+	width: 450px;
+	height: 60px;
+	font-size: 52px;
+	font-family: cursive;
+	word-wrap: break-word;
+}
+
+.note-white {
+	background-color: white;
+}
+.note-CBFAFA { background-color: #CBFAFA; }
+.note-F8CDCD { background-color: #F8CDCD; }
+.note-D5E4F5 { background-color: #D5E4F5; }
+.note-FFF780 { background-color: #FFF780; }
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes note-enlarge-1 {
+    from {transform: scale(1) rotateZ(-1deg);}
+    to {transform: scale(1.05) rotateZ(3deg);}
+}
+/* Firefox */
+@-moz-keyframes note-enlarge-1 {
+    from {transform: scale(1) rotateZ(-1deg);}
+    to {transform: scale(1.05) rotateZ(3deg);}
+}
+
+/* Standard syntax */
+@keyframes note-enlarge-1 {
+    from {transform: scale(1) rotateZ(-1deg);}
+    to {transform: scale(1.05) rotateZ(3deg);}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes note-enlarge-2 {
+    from {transform: scale(1) rotateZ(1deg);}
+    to {transform: scale(1.05) rotateZ(-3deg);}
+}
+/* Firefox */
+@-moz-keyframes note-enlarge-2 {
+    from {transform: scale(1) rotateZ(1deg);}
+    to {transform: scale(1.05) rotateZ(-3deg);}
+}
+
+/* Standard syntax */
+@keyframes note-enlarge-2 {
+    from {transform: scale(1) rotateZ(1deg);}
+    to {transform: scale(1.05) rotateZ(-3deg);}
+}
+
+/****************/
+/* Content type */
+/****************/
+
+.boardLinkPreview{
+	padding: 2%; border: 1px solid rgb(204, 204, 204);
+}
+.boardUrlThumbnail{
+	max-height: 210px;
+	max-width: 370px;
+}
+div.content-container{
+    color: #000000;
+    margin-top: 30px; 
+    text-align: center;
+}
+
+div.content-container:not(:nth-child(2)){
+    opacity: 0;
+}
+
+div.content-container > .qr{
+    padding: 0 5%;
+    position: relative;
+    width: 100%;
+}
+
+img.notepaper-qrCode{
+    *width: 100%;
+    height: 100%;
+    float: right;
+    *max-height: 240px;
+}
+
+div.content-container > img.notepaper-qrCode{
+    *width: 100%;
+    height: 160px;
+    *max-height: 240px;
+}
+
+div.content-container > .text {
+    max-height: 200px; 
+    margin: 5px 10px; 
+    *font-size: 26px;    
+    *line-height: 1.3em;
+    word-wrap: break-word;
+}
+div.content-container > .text:hover { text-decoration: none; }
+
+.image{
+	text-align: center;
+    background-color: white;
+    *height: 240px;
+    border: 5px solid white;
+    *border-top-width: 10px;
+    *border-bottom-width: 40px;
+    -webkit-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    -moz-box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+    box-shadow: 4px 4px 8px -4px rgba(0, 0, 0, .75);
+}
+
+div.content-container .image-title{
+    height: 30px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    font-size: 25px;    
+    font-weight: bold;
+    padding: 3px 0;
+    border-bottom: 1px dotted #666666;
+}
+
+div.content-container > .album{
+    width: 100%;
+    height: 100%;
+}
+
+div.content-container .image .image-title,
+div.content-container .album .image-title{
+    height: 40px;
+    font-weight: normal;
+    line-height: 1.3em;
+    padding: 5px 0;
+    border: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+div.content-container > .album ul,
+div.banner-container > .album ul{
+    margin: 0; 
+}
+div.banner-container > .album,
+div.content-container > .album,
+div.content-container > .album ul li,
+div.banner-container > .album ul li{
+    position: relative;    
+}
+div.content-container > .album ul li:not(:first-child),
+div.banner-container > .album ul li:not(:first-child){
+    display: none;
+    opacity: 0;
+}
+
+div.content-container > .youtube{  }
+div.content-container > .notepaper-youtube iframe{
+    height: 120px;
+	width: 220px;
+}
+div.banner-container > .notepaper-youtube iframe{
+    height: 360px;
+    width: 570px;
+}
+div.content-container > .notepaper-video {
+    max-height: 130px;
+	width: 220px;
+}
+div.content-container > .canvas-img{
+    *border: 1px solid #000;
+    height: 210px;
+}
+div.banner-container > .canvas-img{
+    *border: 1px solid #000;
+    height: 210px;
+} 
+div.content-container .notepaper-img{
+    max-height: 130px;
+    max-width: 250px;
+    position: relative;
+    *width: 75%;
+} 
+
+/*******/
+/* Pin */
+/*******/
+.pin {
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	-webkit-box-shadow: 0 3px 6px rgba(0,0,0,.55);
+	-moz-box-shadow: 0 3px 6px rgba(0,0,0,.55);
+	box-shadow: 0 3px 6px rgba(0,0,0,.55);
+	background-image: -moz-radial-gradient(35px 35px 35deg, circle cover, red 50%, black 100%);
+    background-image: -webkit-radial-gradient(35px 35px, circle cover, red, black);
+    background-image: radial-gradient(red 50%, black 100%);
+    position: absolute;
+    top: 2%;
+    left: 48%;
+	z-index: 10;
+}
+
+.pin-yellow {
+	background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 50%, black 100%);
+	background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, black);
+	background-image: radial-gradient(yellow 50%, black 100%);
+}
+
+.pin-blue {
+	background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, blue 50%, white 100%);
+	background-image: -webkit-radial-gradient(45px 45px, circle cover, blue, white);
+	background-image: radial-gradient(blue 50%, white 100%);
+}
+
+
+/**********/
+/* Others */
+/**********/
+@media all and (max-width: 1800px) {
+    .note {
+        *height: 270px;
+    }        
+}
+
+@media only screen and (min-width : 1024px){
+    body{ background: url('../img/corkboard.jpg'); }
+}
+
+@media only screen and (min-height : 1000px){
+    div.content-container .notepaper-img{
+        width: 85%;
+    }
+}
+
+@media only screen and (min-height : 1200px){
+    div.content-container .notepaper-img{
+        width: 85%;
+    }
+}
+
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+.cf:after {
+    clear:both;
+}
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+    zoom:1;
+}
