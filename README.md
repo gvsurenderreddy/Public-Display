@@ -1,6 +1,10 @@
 Corkboard
 =========
 
+Demo video
+---
+http://youtu.be/4USdgeqkRNw
+
 Installation
 ---
 ```bash
